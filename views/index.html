@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PBone Cloud Print</title>
+    <link href="css/libs/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="content" ng-app="pbone-cloud">
+      <h1>Fiscal Cloud Print</h1>
+      <section ng-controller="cloud-printers" ng-init="checkAuth()">
+        <section ng-if="authorized === true">
+          <h3>Printers</h3>
+          <span ng-if="!selected_printer" class="label label-default">Select printer</span>
+          <ul class="nav nav-pills nav-stacked" role="tablist">
+            <li role="presentation" ng-repeat="printer in printers" ng-click="selectPrinter(printer.id)" ng-class="{active: printer.id == selected_printer.id}">
+              <a href="#">{{printer.name}} </a>
+            </li>
+          </ul>
+          
+          <h3>Selected printer</h3>
+          <ul ng-if="selected_printer != null" class="printers">
+            <li>Name: {{selected_printer.name}} </li>
+            <li>Manufacturer: {{selected_printer.manufacturer}} </li>
+            <li>Model: {{selected_printer.model}} </li>
+          </ul>
+          <button ng-if="selected_printer != null" type="button" class="btn btn-default" ng-click="printTest()">
+            Print Test
+          </button>
+        </section>
+        <button ng-if="authorized === false" type="button" class="btn btn-default btn-lg" ng-click="googleLogin()">
+          Google login
+        </button>
+      </section>    
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
